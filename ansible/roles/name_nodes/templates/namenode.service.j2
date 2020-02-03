@@ -1,0 +1,19 @@
+[Unit]
+Description=Hadoop DFS namenode
+After=syslog.target network.target remote-fs.target nss-lookup.target network-online.target
+Requires=network-online.target
+
+[Service]
+User={{ hadoop_user }}
+Group={{ hadoop_group }}
+Type=forking
+ExecStart={{ hadoop_dir }}/bin/hdfs --daemon start namenode
+ExecStop={{ hadoop_dir }}/bin/hdfs --daemon stop  namenode
+WorkingDirectory={{ hadoop_dir }}
+Environment=JAVA_HOME={{ java_home }}
+Environment=HADOOP_HOME={{ hadoop_dir }}
+TimeoutStartSec=2min
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

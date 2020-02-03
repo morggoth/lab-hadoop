@@ -1,12 +1,12 @@
-all: start_cluster_local
+all: start_local
 
-start_cluster_local:
+start_local:
 	vagrant up
 	ansible-playbook ansible/site.yml -i ansible/stage
 
-destroy_cluster:
+destroy_local:
 	vagrant destroy -f
 #TODO: clean-up known_hosts
 
-stop:
+stop_local:
 	vagrant halt -f

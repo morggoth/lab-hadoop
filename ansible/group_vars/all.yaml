@@ -4,3 +4,4 @@ hadoop_dir: /opt/hadoop
 hadoop_home: "/home/{{ hadoop_user }}"
 hadoop_group: hadoop
 hadoop_user: hadoop
+java_home : /usr/lib/jvm/java-8-openjdk-amd64

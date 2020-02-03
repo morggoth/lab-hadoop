@@ -1,0 +1,18 @@
+---
+- name: format namenode dir
+  shell: hdfs namenode -format
+  become_user: "{{ hadoop_user }}"
+  args:
+    executable: /bin/bash
+
+- name: namenode start
+  systemd:
+    name: namenode
+    daemon_reload: yes
+    enabled: yes
+    state: started
+
+- name: namenode restart
+  systemd:
+    name: namenode
+    state: restarted

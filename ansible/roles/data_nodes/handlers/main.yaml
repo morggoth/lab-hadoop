@@ -1,0 +1,12 @@
+---
+- name: datanode start
+  systemd:
+    name: datanode
+    daemon_reload: yes
+    enabled: yes
+    state: started
+
+- name: datanode restart
+  systemd:
+    name: datanode
+    state: restarted

@@ -1,4 +1,3 @@
-
 ---
 - name: Create data directory
   file:
@@ -8,14 +7,18 @@
     owner: "{{ hadoop_user }}"
     group: "{{ hadoop_group }}"
 
+- name: Create datanode unit
+  template:
+    src: templates/datanode.service.j2
+    dest: /etc/systemd/system/datanode.service
+  notify:
+    - datanode start
+
 - name: Copy config files
   template:
     src: templates/hdfs-site.xml.j2
-    dest: "{{ hadoop_home }}/{{ datanode_data_dir }}"
+    dest: "{{ hadoop_conf_dir }}/hdfs-site.xml"
     owner: "{{ hadoop_user }}"
     group: "{{ hadoop_group }}"
-
-- name: start datanode
-  shell: |
-    source {{ hadoop_home }}/.bashrc
-    hadoop-daemon.sh --scrip hdfs start datanode
+  notify:
+    - datanode restart
