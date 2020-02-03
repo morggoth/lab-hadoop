@@ -2,7 +2,7 @@ all: start_local
 
 start_local:
 	vagrant up
-	ansible-playbook ansible/site.yml -i ansible/stage
+	ansible-playbook ansible/site.yml --inventory ansible/stage --forks 1
 
 destroy_local:
 	vagrant destroy -f

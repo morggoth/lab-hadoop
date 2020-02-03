@@ -51,3 +51,11 @@
     dest: "{{ hadoop_conf_dir }}/core-site.xml"
     owner: "{{ hadoop_user }}"
     group: "{{ hadoop_group }}"
+
+- name: Create hadoop log directory
+  file:
+    path: "{{ hadoop_log_dir }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
