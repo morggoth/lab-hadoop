@@ -1,8 +1,0 @@
----
-- hosts: localhost
-  tasks:
-    - name: download archive
-      unarchive:
-        remote_src: yes
-        src: https://ftp.gnu.org/gnu/bool/bool-0.2.tar.gz
-        dest: /Users/morggoth/wk/e/BDSE_20019Q2/test_dir/

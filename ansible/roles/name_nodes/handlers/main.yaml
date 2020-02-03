@@ -1,7 +1,6 @@
 ---
 - name: format namenode dir
-  shell: hdfs namenode -format
-  become_user: "{{ hadoop_user }}"
+  shell: "export JAVA_HOME={{ java_home }}; {{ hadoop_dir }}/bin/hdfs namenode -format"
   args:
     executable: /bin/bash
 
