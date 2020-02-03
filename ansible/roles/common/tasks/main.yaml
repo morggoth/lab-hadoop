@@ -1,0 +1,46 @@
+---
+- name: Create hadoop group
+  group:
+    name: "{{ hadoop_group }}"
+
+- name: Create hadoop user
+  user:
+    name: "{{ hadoop_user }}"
+    groups: "{{ hadoop_group }}"
+
+- name: Install soft
+  apt:
+    name: "{{ hadoop_dependencies }}"
+    update_cache: yes
+
+- name: Copy .bashrc
+  template:
+    src: templates/bashrc.j2
+    dest: "{{ hadoop_home }}/.bashrc"
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
+
+- name: Create hadoop directory
+  file:
+    path: "{{ hadoop_conf_dir }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
+
+- name: Download Hadoop
+  unarchive:
+    src: "{{ hadoop_link }}"
+    dest: "{{ hadoop_dir }}"
+    remote_src: yes
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
+    extra_opts:
+    - --strip-components=1
+
+- name: Copy base core-site.xml
+  template:
+    src: templates/core-site.xml.j2
+    dest: "{{ hadoop_conf_dir }}/core-site.xml"
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"

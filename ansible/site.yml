@@ -1,0 +1,3 @@
+---
+- import_playbook: name_node.yaml
+- import_playbook: data_node.yaml

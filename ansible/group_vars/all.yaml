@@ -1,0 +1,6 @@
+---
+hadoop_conf_dir: "{{ hadoop_dir }}/etc/hadoop"
+hadoop_dir: /opt/hadoop
+hadoop_home: "/home/{{ hadoop_user }}"
+hadoop_group: hadoop
+hadoop_user: hadoop

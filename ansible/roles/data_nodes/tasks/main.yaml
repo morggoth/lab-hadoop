@@ -1,0 +1,21 @@
+
+---
+- name: Create data directory
+  file:
+    path: "{{ hadoop_home }}/{{ datanode_data_dir }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
+
+- name: Copy config files
+  template:
+    src: templates/hdfs-site.xml.j2
+    dest: "{{ hadoop_home }}/{{ datanode_data_dir }}"
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
+
+- name: start datanode
+  shell: |
+    source {{ hadoop_home }}/.bashrc
+    hadoop-daemon.sh --scrip hdfs start datanode

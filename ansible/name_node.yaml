@@ -1,0 +1,6 @@
+---
+- hosts: name_nodes
+  become: yes
+  roles:
+    - common
+    - name_nodes

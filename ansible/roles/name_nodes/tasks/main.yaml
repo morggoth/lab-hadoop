@@ -1,0 +1,22 @@
+
+---
+- name: Create name directory
+  file:
+    path: "{{ hadoop_home }}/{{ namenode_name_dir }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
+
+- name: Copy config files
+  template:
+    src: templates/hdfs-site.xml.j2
+    dest: "{{ hadoop_home }}/{{ namenode_name_dir }}"
+    owner: "{{ hadoop_user }}"
+    group: "{{ hadoop_group }}"
+
+- name: start namenode
+  shell: |
+    source {{ hadoop_home }}/.bashrc
+    hdfs namenode -format
+    hadoop-daemon.sh --script hdfs start namenode
